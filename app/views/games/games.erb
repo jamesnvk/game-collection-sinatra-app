@@ -1,3 +1,9 @@
-<p>Welcome, <%=@user.username%></p>
+<h3>Welcome, <%=@user.username%></h3>
+
+<h4>Games owned:</h4>
+  <% @user.games.each do |game| %>
+    <li><%= game.title %>, <%= game.year %></li>
+    <% end %>
 <br></br>
+
 <a href="/logout">Log out</a>

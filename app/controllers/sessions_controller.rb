@@ -1,17 +1,17 @@
 class SessionsController < ApplicationController
 
   get '/login' do
-    redirect to '/games' if logged_in?
+    redirect to "/games" if logged_in?
     erb :'users/login'
   end
 
   post '/login' do
     if empty_field?
-      redirect to '/login'
+      redirect to "/login"
     else
       @user = User.find_by(password: params[:password])
       login
-      redirect to '/games'
+      redirect to "/games"
     end
   end
 
