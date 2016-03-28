@@ -4,13 +4,18 @@ class UsersController < ApplicationController
     erb :'index'
   end
 
-  get '/signup' do 
+  get '/signup' do
+    redirect to '/games' if logged_in?
     erb :'users/signup'
   end
 
   post '/signup' do
-    @user = User.create(params)
-    login
-    redirect to "/games"
+    if empty_field?
+      redirect to "/signup"
+    else
+      @user = User.create(params)
+      login
+      redirect to "/games"
+    end
   end
 end

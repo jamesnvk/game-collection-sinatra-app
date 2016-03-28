@@ -21,6 +21,10 @@ class ApplicationController < Sinatra::Base
     def logout
       session.clear
     end
+
+    def empty_field?
+      params.has_value?("")
+    end
   end
 
 
