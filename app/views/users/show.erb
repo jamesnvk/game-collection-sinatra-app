@@ -1,0 +1,5 @@
+<h3><%=@user.username%></h3>
+<h4>Games <%=@user.username%> owns:</h4>
+<% @user.games.each do |game| %>
+  <li><%=game.title%>, <%=game.year%></li>
+  <%end%>
