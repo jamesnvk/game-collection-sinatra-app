@@ -1,7 +1,11 @@
 <%=@game.title%>, <%=@game.year%>
+<br></br>
+<a href="/games/<%=@game.id%>/edit"><input type="submit" value="Edit Game"> </a>
+
+<form action="/games/<%=@game.id%>/delete" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Game">
+</form>
 
 <br></br>
-
-
-
-Return to your list of games: <a href="/games">My Games</a>
+<a href="/games"><input type="submit" value="My Games"></a>

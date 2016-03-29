@@ -2,7 +2,7 @@ class GamesController < ApplicationController
 
   get '/games' do
     if logged_in?
-      @user = User.find_by(session[:id])
+      @user = User.find(session[:id])
       erb :'games/games'
     else
       redirect to "/login"
@@ -15,19 +15,53 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
+    #flash message
     redirect to "/games/new" if empty_field?
-    @user = User.find_by(session[:id])
-    binding.pry 
-    @game = Game.find_or_create_by(params)
+    @user = User.find(session[:id])
+    @game = Game.create(params)
     @user.games << @game
-    redirect to "/games/#{@game.slug}"
+    redirect to "/games/#{@game.id}"
   end
 
-  get '/games/:slug' do
+  get '/games/:id' do
     redirect to "/login" if !logged_in?
-    @game = Game.find_by_slug(params[:slug])
-    binding.pry 
+    @user = User.find(session[:id])
+    @game = Game.find(params[:id])
     erb :'/games/show'
+  end
+
+  get '/games/:id/edit' do
+    redirect to "/login" if !logged_in?
+    @user = User.find(session[:id])
+    @game = Game.find(params[:id])
+    if @game.user_id == @user.id
+      erb :'/games/edit'
+    else
+      #flash message
+      redirect to "/games/#{@game.id}"
+    end 
+  end
+
+  patch '/games/:id' do
+    @game = Game.find(params[:id]) 
+      redirect to "games/#{@game.id}/edit" if empty_field?
+    @game.title = params[:title]
+    @game.year = params[:year]
+    @game.save
+    redirect to "games/#{@game.id}"
+  end
+
+  delete '/games/:id/delete' do
+    @user = User.find(session[:id]) 
+    @game = Game.find(params[:id])
+    if @game.user_id == @user.id
+      @game.destroy
+      redirect to "/games"
+      #flash message
+    else
+      #flash message
+      redirect to "/games/#{@game.id}"
+    end
   end
 
 

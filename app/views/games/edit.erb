@@ -1,0 +1,9 @@
+<h3>Edit Game</h3>
+
+<form action="/games/<%=@game.id%>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+    <label>Title: <input type="text" name="title" value="<%=@game.title%>">
+      <br></br>
+    <label>Year: <input type="text" name="year" value="<%=@game.year%>">
+      <br></br>
+    <input type="submit" value="Edit Game">

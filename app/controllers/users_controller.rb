@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
 
-  get '/' do 
+  get '/' do
+    redirect to "/games" if logged_in?
     erb :'index'
   end
 
   get '/signup' do
-    redirect to '/games' if logged_in?
+    redirect to "/games" if logged_in?
     erb :'users/signup'
   end
 
@@ -18,4 +19,9 @@ class UsersController < ApplicationController
       redirect to "/games"
     end
   end
+
+  get '/users' do
+    erb :'users/users'
+  end
+
 end

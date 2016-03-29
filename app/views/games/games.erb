@@ -2,8 +2,11 @@
 
 <h4>Games owned:</h4>
   <% @user.games.each do |game| %>
-    <li><%= game.title %>, <%= game.year %></li>
+    <li><a href="games/<%=game.id%>"><%= game.title %></a>, <%= game.year %></li>
     <% end %>
 <br></br>
 
+<a href="/games/new">Add a game</a> 
+
 <a href="/logout">Log out</a>
+
