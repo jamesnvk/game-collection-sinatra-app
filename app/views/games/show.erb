@@ -1,3 +1,9 @@
+<% if flash[:edit] %>
+  <%= flash[:edit] %><br>
+  <%end %>
+<% if flash[:delete] %>
+  <%= flash[:delete] %><br>
+  <%end %>
 <%=@game.title%>, <%=@game.year%>
 <br></br>
 <a href="/games/<%=@game.id%>/edit"><input type="submit" value="Edit Game"> </a>

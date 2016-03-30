@@ -1,4 +1,7 @@
 <h3>Log in</h3>
+<% if flash[:error] %>
+  <%= flash[:error] %>
+  <%end %>
 <form action="/login" method="POST">
   <label>Username:</label> <input type="text" name="username">
   <br></br>

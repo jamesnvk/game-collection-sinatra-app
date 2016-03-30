@@ -6,13 +6,15 @@ class SessionsController < ApplicationController
   end
 
   post '/login' do
-    if empty_field?
-      redirect to "/login"
-    else
-      @user = User.find_by(password: params[:password])
-      login
-      redirect to "/games"
-    end
+    redirect to "/login" if empty_field?
+      @user = User.find_by(username: params[:username])
+        if @user && @user.authenticate(params[:password])
+          login
+          redirect to "/games"
+        else
+          flash[:error] = "Invalid username or password."
+          redirect to "/login"
+        end
   end
 
   get '/logout' do

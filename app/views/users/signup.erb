@@ -1,4 +1,7 @@
 <h3>Please fill out the form below:</h3>
+<% if flash[:field] %>
+  <%= flash[:field] %><br>
+  <%end %>
 <form action="/signup" method="POST">
   <label>Username:</label> <input type="text" name="username">
   <br></br>

@@ -15,8 +15,6 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
-    #flash message
-    redirect to "/games/new" if empty_field?
     @user = User.find(session[:id])
     @game = Game.create(params)
     @user.games << @game
@@ -37,7 +35,7 @@ class GamesController < ApplicationController
     if @game.user_id == @user.id
       erb :'/games/edit'
     else
-      #flash message
+      flash[:edit] = "Unable to edit other user's games"
       redirect to "/games/#{@game.id}"
     end 
   end
@@ -57,9 +55,8 @@ class GamesController < ApplicationController
     if @game.user_id == @user.id
       @game.destroy
       redirect to "/games"
-      #flash message
     else
-      #flash message
+      flash[:delete] = "Unable to delete other user's games"
       redirect to "/games/#{@game.id}"
     end
   end

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
   post '/signup' do
     if empty_field?
+      flash[:field] = "Please fill out all form fields"
       redirect to "/signup"
     else
       @user = User.create(params)
